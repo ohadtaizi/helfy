@@ -32,24 +32,43 @@
     color: #1abc9c;
   }
    */
-   .layout {
+.layout {
     display: flex;
     height: 100vh;
-  }
-  
-  .content {
+}
+
+.content {
     flex-grow: 1;
     padding: 20px;
     background-color: #f4f4f4;
     margin-right: 250px;
-  }
-  
-  @media (max-width: 768px) {
+}
+
+@media (max-width: 768px) {
     .sidebar {
-      width: 200px;
+        width: 60px;
+        height: 40px;
+        display: flex;
+        left: 0;
+        flex-direction: column;
+    box-shadow: unset;
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            margin-left: 150px;
+        }
+
+        nav {
+
+            flex-direction: row;
+            gap: 0px;
+        }
     }
-  
+
     .content {
-      margin-left: 200px;
+        margin-right: 0px;
+        margin-top: 150px;
+
     }
-  }
+
+}
