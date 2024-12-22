@@ -5,6 +5,7 @@ import {
 import "./index.css";
 import Products from "./pages/Products";
 import Trivia from "./pages/Trivia";
+import CreateIngredient from "./pages/CreateIngredient";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,11 @@ const router = createBrowserRouter([
   {
     path: "/trivia",
     element: <Trivia />,
-  }
+  },
+  {
+    path: "/create-ingredient",
+    element: <CreateIngredient />,
+  },
 ]);
 
 const PagesRouter = () => {

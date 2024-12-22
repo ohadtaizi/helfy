@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { DB, Product } from "../data-providers/Server";
 import { IoExtensionPuzzle } from "react-icons/io5";
 import SearchFilter from "../components/SearchFilter";
+// import { useLocation } from "react-router-dom"; // Import useLocation
+
 import "./product.css";
 
 const Products = () => {
@@ -11,12 +13,18 @@ const Products = () => {
 
   const itemsPerPage = 10;
 
+  // const location = useLocation(); // Detect route changes
+  const fetchProducts = async () => {
+    setIsLoading(true);
+    const products = await DB.loadProductsFromSessionStorage();
+    setProducts(products);
+    setIsLoading(false);
+    console.log()
+  }
+
   useEffect(() => {
-    DB.getAllProducts().then((products) => {
-      setProducts(products);
-      setIsLoading(false);
-    });
-  }, []);
+    fetchProducts(); // Fetch products on mount or route change
+  }, []); // Refetch whenever the route changes
   const handlePageChange = (direction: string) => {
     if (direction === "next" && currentPage < Math.ceil(products.length / itemsPerPage)) {
       setCurrentPage(currentPage + 1);
@@ -43,6 +51,8 @@ const Products = () => {
     const updatedProducts = await DB.getAllProducts(); // Refresh products from DB
     setProducts(updatedProducts); // Update state
   };
+ console.log("productsssssss",products)
+  
 
   return (
     <div className="products-page">
