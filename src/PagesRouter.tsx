@@ -6,6 +6,7 @@ import "./index.css";
 import Products from "./pages/Products";
 import Trivia from "./pages/Trivia";
 import CreateIngredient from "./pages/CreateIngredient";
+import CreateSalad from "./pages/CreateSalad"
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/create-ingredient",
     element: <CreateIngredient />,
+  },
+  {
+    path: "Create-Salad",
+    element: <CreateSalad />,
   },
 ]);
 
