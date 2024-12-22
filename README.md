@@ -17,7 +17,7 @@ Both components are integrated into a React application and use a mock database 
 ### Setup
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/ohadtaizi/helfy.git
    cd <repository-folder>
    ```
 2. Install dependencies:
