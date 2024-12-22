@@ -46,12 +46,17 @@ body {
 }
 .search-bar {
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
+}
+.search-bar:focus {
+  outline: none;
+  border-color: #1abc9c;
+  box-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
 }
 
 @media (max-width: 768px) {
