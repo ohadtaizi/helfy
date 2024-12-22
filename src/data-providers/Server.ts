@@ -53,10 +53,34 @@ const createProduct = async () => {
 
 }
 
+// Toggle product in-stock status
 const toggleProductInStock = async (id: number) => {
-    //your implementation here
-}
+    // Fetch all products
+    const allProducts = await getAllProducts();
 
+    // Find the product to toggle
+    const product = allProducts.find((p) => p.id === id);
+    if (!product) {
+        console.error(`Product with ID ${id} not found.`);
+        return;
+    }
+
+    // Toggle the stock status of the product
+    product.in_stock = !product.in_stock;
+
+    // Update all salads that use this product as an ingredient
+    allProducts.forEach((p) => {
+        if (p.ingredients.some((i) => i.product_id === id)) {
+            p.in_stock = product.in_stock;
+        }
+    });
+
+    // Replace the original array with updated products
+    products.length = 0;
+    products.push(...allProducts);
+
+    console.log(`Product with ID ${id} and its dependent salads have been updated.`);
+};
 
 
 const getQuestions = async (): Promise<Question[]> => {
@@ -67,10 +91,21 @@ const getQuestions = async (): Promise<Question[]> => {
         }, 1000);
     })
 }
-
+// Update an existing product
+const updateProduct = async (product: Product) => {
+    const index = products.findIndex((p) => p.id === product.id);
+    if (index !== -1) {
+        products[index] = product;
+        console.log(`Product with ID ${product.id} has been updated.`);
+    } else {
+        console.error(`Product with ID ${product.id} not found.`);
+    }
+};
 export const DB = {
     getAllProducts,
     getProductById,
-    getQuestions
+    getQuestions,
+    toggleProductInStock,
+    updateProduct,
 }
 

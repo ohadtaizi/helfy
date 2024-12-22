@@ -1,4 +1,4 @@
-
+/* 
 #root {
   min-height: 100vh;
   display: flex;
@@ -7,7 +7,7 @@
   justify-content: center;
   color: white;
   background-color: rgba(43, 37, 37, 0.808);
-}
+} */
 
 body {
   padding: 0;
@@ -17,21 +17,21 @@ body {
 }
 
 
-.product-card {
+/* .product-card {
   display: flex;
   align-items: center;
   border: 1px solid black;
   justify-content: space-between;
   gap: 5px;
   margin: 10px;
-}
+} */
 
-.products-page {
+/* .products-page {
   display: flex;
   width: 100%;
   flex-direction: column;
   justify-content: center;
-}
+} */
 
 
 .search-bar {

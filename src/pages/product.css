@@ -1,3 +1,18 @@
+.products-page {
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+  }
+
 .salad-card {
     position: relative;
   }
@@ -10,7 +25,7 @@
     padding: 8px 12px;
     border-radius: 8px;
     top: 0%;
-    left: 50%;
+    left: 70%;
     transform: translateX(-50%);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-size: 14px;
@@ -32,4 +47,70 @@
   
   .product-card.out-of-stock {
     border-color: red;
+  }
+  .product-card {
+    border: 2px solid transparent;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+  }
+  .product-card button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .product-card button:hover {
+    background-color: #0056b3;
+  }
+.product-card:hover {
+    transform: translateY(-5px);
+  }
+  .product-card h1 {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #333;
+  }
+
+
+  .titleAndIoExtensionPuzzle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .titleAndIoExtensionPuzzle h1 {
+    font-size: 18px;
+    margin: 10px 0;
+    color: green; /* Make product.title green */
+  }
+  
+  .titleAndIoExtensionPuzzle .io-extension-puzzle {
+    color: green; /* Set the IoExtensionPuzzle icon color to green */
+    position: relative;
+    top: 4px; /* Adjust the icon to move slightly down */
+  }
+  @media (max-width: 600px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .product-card h1 {
+      font-size: 16px;
+    }
+  
+    .product-card button {
+      padding: 6px 10px;
+      font-size: 14px;
+    }
+    .titleAndIoExtensionPuzzle h1 {
+        font-size: 16px;
+      }
   }
