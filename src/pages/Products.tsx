@@ -8,6 +8,7 @@ import "./product.css";
 
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -17,6 +18,8 @@ const Products = () => {
   const fetchProducts = async () => {
     setIsLoading(true);
     const products = await DB.loadProductsFromSessionStorage();
+    setFilteredProducts(products); // Initially set filtered products to all products
+
     setProducts(products);
     setIsLoading(false);
     console.log()
@@ -26,19 +29,30 @@ const Products = () => {
     fetchProducts(); // Fetch products on mount or route change
   }, []); // Refetch whenever the route changes
   const handlePageChange = (direction: string) => {
-    if (direction === "next" && currentPage < Math.ceil(products.length / itemsPerPage)) {
+    if (
+      direction === "next" &&
+      currentPage < Math.ceil(filteredProducts.length / itemsPerPage)
+    ) {
       setCurrentPage(currentPage + 1);
     }
     if (direction === "prev" && currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
+  const handleSearch = (query: string) => {
+    const lowercasedQuery = query.toLowerCase();
+    const filtered = products.filter((product) =>
+      product.title.toLowerCase().includes(lowercasedQuery)
+    );
+    setFilteredProducts(filtered);
+    setCurrentPage(1); // Reset pagination to the first page
+  };
 
-  const paginatedProducts = products.slice(
+  const paginatedProducts = filteredProducts.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-  const productMap = products.reduce((map, product) => {
+  const productMap = filteredProducts.reduce((map, product) => {
     map[product.id] = product.title;
     return map;
   }, {} as Record<number, string>);
@@ -48,7 +62,7 @@ const Products = () => {
   }
   const handleToggleStock = async (productId: number) => {
     await DB.toggleProductInStock(productId); // Call the updated function
-    const updatedProducts = await DB.getAllProducts(); // Refresh products from DB
+    const updatedProducts = await DB.loadProductsFromSessionStorage(); // Refresh products from DB
     setProducts(updatedProducts); // Update state
   };
  console.log("productsssssss",products)
@@ -56,7 +70,7 @@ const Products = () => {
 
   return (
     <div className="products-page">
-      <SearchFilter />
+      <SearchFilter onSearch={handleSearch} />
       <div className="product-grid">
         {paginatedProducts.map((product) => {
           const isSalad = product.ingredients.length > 0;
@@ -98,7 +112,9 @@ const Products = () => {
         <span>Page {currentPage}</span>
         <button
           onClick={() => handlePageChange("next")}
-          disabled={currentPage === Math.ceil(products.length / itemsPerPage)}
+          disabled={
+            currentPage === Math.ceil(filteredProducts.length / itemsPerPage)
+          }
         >
           Next
         </button>
