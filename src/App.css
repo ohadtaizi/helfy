@@ -33,7 +33,17 @@ body {
   justify-content: center;
 } */
 
+.app-container {
+  display: flex;
+}
 
+.content-container {
+  margin-left: 250px; /* Sidebar width */
+  padding: 20px;
+  flex-grow: 1;
+  background-color: #f1f1f1;
+  min-height: 100vh;
+}
 .search-bar {
   width: 100%;
   max-width: 400px;
