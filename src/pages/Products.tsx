@@ -33,7 +33,9 @@ const Products = () => {
         return (
           <div
             key={product.id}
-            className={`product-card ${isSalad ? "salad-card" : ""}`}
+            className={`product-card ${
+              product.in_stock ? "in-stock" : "out-of-stock"
+            } ${isSalad ? "salad-card" : ""}`}
           >
             <h1>{product.title}</h1>
             {isSalad && (

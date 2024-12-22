@@ -26,4 +26,10 @@
     padding: 2px 0;
     font-weight: normal;
   }
+  .product-card.in-stock {
+    border-color: green;
+  }
   
+  .product-card.out-of-stock {
+    border-color: red;
+  }
