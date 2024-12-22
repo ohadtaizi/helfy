@@ -7,6 +7,9 @@ import "./product.css";
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = 10;
 
   useEffect(() => {
     DB.getAllProducts().then((products) => {
@@ -14,7 +17,19 @@ const Products = () => {
       setIsLoading(false);
     });
   }, []);
+  const handlePageChange = (direction: string) => {
+    if (direction === "next" && currentPage < Math.ceil(products.length / itemsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+    if (direction === "prev" && currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
+  const paginatedProducts = products.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
   const productMap = products.reduce((map, product) => {
     map[product.id] = product.title;
     return map;
@@ -33,7 +48,7 @@ const Products = () => {
     <div className="products-page">
       <SearchFilter />
       <div className="product-grid">
-        {products.map((product) => {
+        {paginatedProducts.map((product) => {
           const isSalad = product.ingredients.length > 0;
 
           return (
@@ -45,7 +60,7 @@ const Products = () => {
             >
             <div className="titleAndIoExtensionPuzzle ">  
               <h1>{product.title}</h1>
-              {isSalad && (<IoExtensionPuzzle size={25} fill="g"/>)}
+              {isSalad && (<IoExtensionPuzzle size={25} fill="green"/>)}
               </div>
               <button onClick={() => handleToggleStock(product.id)}>
                 {product.in_stock ? "In Stock" : "Out of Stock"}
@@ -65,6 +80,18 @@ const Products = () => {
             </div>
           );
         })}
+      </div>
+      <div className="pagination-controls">
+        <button onClick={() => handlePageChange("prev")} disabled={currentPage === 1}>
+          Previous
+        </button>
+        <span>Page {currentPage}</span>
+        <button
+          onClick={() => handlePageChange("next")}
+          disabled={currentPage === Math.ceil(products.length / itemsPerPage)}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
